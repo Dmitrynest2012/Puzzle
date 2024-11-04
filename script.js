@@ -197,3 +197,18 @@ document.addEventListener("DOMContentLoaded", async function() {
 
   loadQuestions();
 });
+
+const helpButton = document.getElementById('helpButton');
+        const popup = document.getElementById('popup');
+
+        // Переключение видимости попапа при нажатии на кнопку
+        helpButton.addEventListener('click', () => {
+            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Скрытие попапа при нажатии вне кнопки или попапа
+        document.addEventListener('click', (event) => {
+            if (!helpButton.contains(event.target) && !popup.contains(event.target)) {
+                popup.style.display = 'none';
+            }
+        });
