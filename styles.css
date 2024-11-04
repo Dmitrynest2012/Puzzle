@@ -1,0 +1,250 @@
+/* Импортируем шрифт из Google Fonts. */
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Play';
+  }
+  
+  body {
+    background: linear-gradient(135deg, rgba(128, 0, 128, 0.6), rgba(255, 255, 255, 0.6), rgba(128, 0, 128, 0.6));
+    background-size: 300% 300%;
+    animation: gradientAnimation 32s ease infinite;
+  }
+  
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  #header, #main, #footer {
+    width: 100%;
+    text-align: center;
+  }
+  
+  #header {
+    position: fixed;
+    left: 50%;
+    top: 2%; /* Выравниваем хедер по верхнему краю */
+    transform: translateX(-50%);
+
+
+    /* Медиа-запрос для адаптации к смартфонам */
+    @media only screen and (max-width: 600px) {
+      font-size: 16px;
+    }
+  
+    /* Медиа-запрос для адаптации к большим экранам (шире 1024px) */
+    @media only screen and (min-width: 1025px) {
+      font-size: 17px;
+    }
+
+    /* Медиа-запрос для адаптации к большим экранам (шире 1680x) */
+    @media only screen and (min-width: 1680px) {
+      font-size: 18px;
+      }
+  }
+  
+  #wisdom-points, #rank {
+    color: rgb(0, 0, 0); /* Цвет текста */
+    font-family: 'Play', sans-serif; /* Шрифт Play */
+    display: block;
+  }
+  
+  #wisdom-points {
+    margin-bottom: 5px;
+  }
+  
+  #rank {
+    margin-top: 5px;
+  }
+  
+  #main {
+    background-color: rgba(128, 0, 128, 0.5); /* Фиолетовый полупрозрачный фон */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 12vh auto 0 auto; /* Отступ сверху 30px, центрирование по горизонтали */
+  
+    /* Ширина контейнера по умолчанию (для компьютеров) */
+    width: 80%; /* Примерная ширина контейнера, можно регулировать по вашему усмотрению */
+  
+    z-index: 2;
+
+    /* Медиа-запрос для адаптации к смартфонам */
+    @media only screen and (max-width: 600px) {
+      width: 80%; /* Уменьшаем ширину контейнера для смартфонов */
+      font-size: 16px;
+    }
+  
+    /* Медиа-запрос для адаптации к большим экранам (шире 1024px) */
+    @media only screen and (min-width: 1025px) {
+      width: 50%; /* Устанавливаем ширину контейнера на 50% для больших экранов */
+      font-size: 17px;
+    }
+
+    /* Медиа-запрос для адаптации к большим экранам (шире 1680x) */
+    @media only screen and (min-width: 1680px) {
+        width: 35%; /* Устанавливаем ширину контейнера на 50% для больших экранов */
+        font-size: 18px;
+      }
+  }
+  
+  
+  
+  #question-number {
+    color: white; /* Белый цвет текста */
+    font-family: 'Play', sans-serif; /* Шрифт Play */
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  #options {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирование по горизонтали */
+    margin-top: 20px;
+  }
+  
+  #options button {
+    margin-bottom: 10px;
+  }
+  
+  #footer {
+    margin-top: 20px; /* Увеличиваем отступ сверху */
+    display: flex;
+    justify-content: space-between; /* Размещаем кнопки с равными отступами */
+    align-items: center;
+    width: 220px;
+    margin: 0 auto; /* Центрируем футер */
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: rgba(128, 0, 128, 0.5); /* Фиолетовый полупрозрачный фон */
+    border-radius: 10px; /* Закругленные углы у футера */
+    z-index: 2;
+}
+
+
+.restart-btn, .next-btn, .prev-btn {
+    border: 2px solid rgba(0, 0, 0, 0.5); /* Цвет рамки */
+    border-radius: 10px; /* Радиус закругления углов */
+    font-family: 'Play';
+    font-size: 14px;
+
+}
+ 
+  
+  #question-description {
+    color: white; /* Белый цвет текста */
+    font-family: 'Play', sans-serif; /* Шрифт Play */
+    width: 100%; /* Занимать всю доступную ширину контейнера */
+    overflow: hidden; /* Скрываем все, что выходит за пределы контейнера */
+    text-overflow: ellipsis; /* Показываем многоточие (...) для обрезанного текста */
+  }
+  
+  
+  #options button, .restart-btn, .next-btn, .prev-btn {
+    border: 2px solid rgba(0, 0, 0, 0.5); /* Цвет рамки */
+    border-radius: 10px; /* Радиус закругления углов */
+    font-family: 'Play', sans-serif; /* Шрифт Play */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    background-color: rgb(238, 238, 238); /* Прозрачный фон */
+    color: rgb(0, 0, 0); /* Цвет текста */
+    cursor: pointer; /* Изменяем курсор при наведении на кнопку */
+    transition: background-color 0.3s, color 0.3s; /* Плавное изменение цвета при наведении */
+  }
+  
+  #options button:hover, .restart-btn:hover, .next-btn:hover, .prev-btn:hover {
+    background-color: rgb(201, 33, 137); /* Изменение цвета фона при наведении */
+    color: rgb(255, 255, 255); /* Изменение цвета текста при наведении */
+  }
+  
+  #result {
+    color: rgb(255, 255, 255); /* Цвет текста */
+    font-family: 'Play', sans-serif; /* Шрифт Play */
+  }
+
+
+
+
+  /* Основные стили для кнопки */
+  .help-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff; /* Лавандовый цвет */
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.5); /* Цвет рамки */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #000000;
+    z-index: 2;
+    transition: all 0.3s;
+}
+
+.help-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    background-color: rgba(128, 0, 128, 0.5); /* Фиолетовый полупрозрачный фон */
+    color: #ffffff;
+}
+
+/* Стили для попапа */
+.popup {
+    position: fixed;
+    bottom: 100px;
+    left: 20px;
+    max-width: 250px;
+    padding: 15px;
+    background-color: rgba(128, 0, 128, 0.5); /* Фиолетовый полупрозрачный фон */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: none;
+    animation: fadeIn 0.3s;
+    color: #ffffff;
+    z-index: 2;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* Стили для анимированного изображения */
+#animated-image {
+  position: fixed;
+  bottom: 0%;
+
+  right: 0%; /* Центрирование по горизонтали */
+
+  height: 500px; /* 40% от высоты экрана */
+  width: 500px; /* Автоматическая ширина для сохранения пропорций */
+  opacity: 0.9; /* Начальная прозрачность */
+  z-index: 1;
+  transition: all 3s ease-in-out; /* Плавная анимация */
+}
+

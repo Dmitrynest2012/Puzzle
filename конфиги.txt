@@ -1,0 +1,52 @@
+
+Смотри, я немного поменял очередность:
+
+// Преобразование данных в формат вопросов
+          questions = jsonData.slice(1).map(row => ({
+            questionNumber: row[1],
+            description: row[2],
+            correctAnswer: row[3],
+            wrongAnswers: row[4] ? row[4]
+                .split(',')
+                .map(answer => answer.trim().replace(/^\*|\*$/g, '')) // Убираем звездочки по краям
+                : []
+        }));
+
+   А еще смотри на мой хтмл код:
+
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Блиц по Знаниям</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <div id="wisdom-points">"Очки Мудрости": <span id="wisdom"></span></div>
+    <div id="theme">Тема: Человек</div>
+    <div id="rank">Раскрытие темы: <span id="rank-title"></span></div>
+  </div>
+  <div id="main">
+    <div id="question-number"></div>
+    <div id="question-description"></div>
+    <div id="options"></div>
+  </div>
+  <div id="footer">
+    <button id="restart-btn" class="restart-btn">Заново</button>
+
+  </div>
+</div>
+<script src="xlsx.full.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+
+Обрати внимание, что там есть контейнер с айди темой, значение для этого контейнера бы будем брать как раз из row 0.
+А еще в футер надо добавить кнопку перед и кнопку после рестарта, это кнопка назад и вперед (в виде стрелок юникода),
+стрелки переключают строку таблицы. т.е. каждая строка таблицы это глобальная тема и получается сохраняемый пргресс по очкам мудрости и текущему
+вопросу нам надо сохранять внутри каждой глобальной темы отдельно а не на все подряд. А еще каждую глобальную тему - в нее
+можно перейти не только через стрелки, но и через хэш адрес в адресной строке браузера, она тоже будет отображаться. Обнови весь код с учетом этих
+пожеланий и не забывай, что у нас файлы идут отдельно по типам.

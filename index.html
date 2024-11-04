@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Блиц по Знаниям</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <div id="wisdom-points">"Очки Мудрости": <span id="wisdom"></span></div>
+    <div id="theme">Тема: <span id="theme-title"></span></div>
+    <div id="rank">Раскрытие темы: <span id="rank-title"></span></div>
+  </div>
+  <div id="main">
+    <div id="question-number"></div>
+    <div id="question-description"></div>
+    <div id="options"></div>
+  </div>
+  <div id="footer">
+    <button id="prev-btn" class="prev-btn" >⬅️</button>
+    <button id="restart-btn" class="restart-btn">Заново</button>
+    <button id="next-btn" class="next-btn" >➡️</button>
+  </div>
+</div>
+
+<!-- Изображение -->
+<img id="animated-image" src="petrova.png" alt="Petrova Image">
+
+<button class="help-button" id="helpButton">?</button>
+    <div class="popup" id="popup">
+        - Чем больше накоплено очков, тем лучше раскрыта тема.<br>
+        - При переключении на другую тему прогресс сбрасывается.
+    </div>
+
+<script src="xlsx.full.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
