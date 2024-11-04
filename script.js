@@ -194,4 +194,5 @@ const helpButton = document.getElementById('helpButton');
         });
 
 
- 
+        console.log('Загруженные темы:', themes);
+        console.log('Текущая тема:', currentTheme);
