@@ -8,24 +8,35 @@ document.addEventListener("DOMContentLoaded", async function() {
   const restartButton = document.getElementById('restart-btn');
   const forwardButton = document.getElementById('next-btn');
   const backButton = document.getElementById('prev-btn');
-  
 
   forwardButton.textContent = '▶';
   backButton.textContent = '◀';
   forwardButton.classList.add('nav-btn');
   backButton.classList.add('nav-btn');
-  
 
   let questions = [];
   let currentQuestionIndex = 0;
   let wisdomPoints = 0;
   let currentTheme = '';
-  let themes = {};  // Объект для хранения вопросов, сгруппированных по темам
+  let themes = {}; // Объект для хранения вопросов, сгруппированных по темам
+
+  // Добавление визуальной отладки
+  function displayMessage(message) {
+      const debugElement = document.getElementById('debug');
+      if (debugElement) {
+          debugElement.textContent = message;
+      } else {
+          console.log(message);
+      }
+  }
 
   // Загрузка данных из Excel
   async function loadQuestions() {
       try {
           const response = await fetch('database.xlsx');
+          if (!response.ok) {
+              throw new Error('Ошибка при загрузке файла.');
+          }
           const data = await response.arrayBuffer();
           const workbook = XLSX.read(data, { type: 'array' });
           const sheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -34,39 +45,48 @@ document.addEventListener("DOMContentLoaded", async function() {
           // Группировка вопросов по темам
           jsonData.slice(1).forEach(row => {
               const themeName = row[1];
-              const question = {
-                  questionNumber: row[2],
-                  description: row[3],
-                  correctAnswer: row[4],
-                  wrongAnswers: row[5] ? row[5].split(',').map(ans => ans.trim().replace(/^\*|\*$/g, '')) : []
-              };
+              if (themeName) {
+                  const question = {
+                      questionNumber: row[2],
+                      description: row[3],
+                      correctAnswer: row[4],
+                      wrongAnswers: row[5] ? row[5].split(',').map(ans => ans.trim().replace(/^\*|\*$/g, '')) : []
+                  };
 
-              if (!themes[themeName]) {
-                  themes[themeName] = [];
+                  if (!themes[themeName]) {
+                      themes[themeName] = [];
+                  }
+                  themes[themeName].push(question);
               }
-              themes[themeName].push(question);
           });
+
+          if (Object.keys(themes).length === 0) {
+              throw new Error('Темы не загружены или файл пустой.');
+          }
 
           // Восстановление последней темы из localStorage или установка темы по умолчанию
           currentTheme = localStorage.getItem('currentTheme') || Object.keys(themes)[0];
+          if (!currentTheme || !themes[currentTheme]) {
+              currentTheme = Object.keys(themes)[0]; // Устанавливаем первую тему по умолчанию
+          }
           questions = themes[currentTheme];
           themeElement.textContent = `Тема: ${currentTheme}`;
           loadProgress();
           showQuestion();
       } catch (error) {
-          console.error('Ошибка при загрузке данных:', error);
+          displayMessage(`Ошибка при загрузке данных: ${error.message}`);
       }
   }
 
   function showQuestion() {
       if (!questions || questions.length === 0) {
-          console.error('Вопросы не загружены или пусты');
+          displayMessage('Вопросы не загружены или пусты');
           return;
       }
 
       const question = questions[currentQuestionIndex];
       if (!question) {
-          console.error('Неверный индекс вопроса:', currentQuestionIndex);
+          displayMessage(`Неверный индекс вопроса: ${currentQuestionIndex}`);
           return;
       }
 
@@ -177,22 +197,3 @@ document.addEventListener("DOMContentLoaded", async function() {
 
   loadQuestions();
 });
-
-const helpButton = document.getElementById('helpButton');
-        const popup = document.getElementById('popup');
-
-        // Переключение видимости попапа при нажатии на кнопку
-        helpButton.addEventListener('click', () => {
-            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // Скрытие попапа при нажатии вне кнопки или попапа
-        document.addEventListener('click', (event) => {
-            if (!helpButton.contains(event.target) && !popup.contains(event.target)) {
-                popup.style.display = 'none';
-            }
-        });
-
-
-        console.log('Загруженные темы:', themes);
-        console.log('Текущая тема:', currentTheme);
